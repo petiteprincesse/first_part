@@ -1,31 +1,11 @@
-let money,
-    income,
-    addExpenses,
-    deposit,
-    mission,
-    period;
+let num = 266219;
+num = num.toString();
+let multiplicationResult = 1;
 
-alert('Hello, World!');
-console.log('Hello, World!');
+for (let i=0; i<num.length; i++) {
+  multiplicationResult *=num[i];
+}
 
-money = 350000;
-income = 'Фриланс';
-addExpenses = 'Английский, фитнес, косметолог';
-deposit = true;
-mission = 3500000;
-period = 12;
-
-console.log(typeof money);
-console.log(typeof income);
-console.log(typeof deposit);
-
-console.log(addExpenses.length);
-console.log('Период равен ' + period + ' месяцев');
-console.log('Цель заработать ' + mission + ' рублей');
-
-addExpenses = addExpenses.toLowerCase().split(', ');
-console.log(addExpenses);
-
-let budgetDay;
-budgetDay = money/30;
-console.log(budgetDay);
+multiplicationResult **=3;
+multiplicationResult = multiplicationResult.toString();
+console.log(multiplicationResult.substr(0,2));
