@@ -1,67 +1,74 @@
-let money, income, addExpenses, deposit, mission, period;
+let lang = prompt("Введите язык", "ru/en");
 
-money = 350000;
-income = "Фриланс";
-addExpenses = "Английский, фитнес, косметолог";
-deposit = true;
-mission = 3500000;
-period = 12;
-
-console.log(typeof money);
-console.log(typeof income);
-console.log(typeof deposit);
-
-console.log(`Период равен ${period} месяцев`);
-console.log(`Цель заработать ${mission} рублей`);
-
-addExpenses = addExpenses.toLowerCase();
-console.log(addExpenses.split(", "));
-
-money = +prompt("Ваш месячный доход?", 150000);
-
-let budgetDay = money / 30;
-
-addExpenses = prompt(
-  "Перечислите возможные расходы за рассчитываемый период через запятую"
-);
-
-deposit = prompt("Есть ли у вас депозит в банке?", "Да");
-if (deposit == "Да") {
-  deposit = true;
+if (lang == "ru") {
+  console.log("Понедельник");
+  console.log("Вторник");
+  console.log("Среда");
+  console.log("Четверг");
+  console.log("Пятница");
+  console.log("Суббота");
+  console.log("Воскресенье");
+} else if (lang == "en") {
+  console.log("Monday");
+  console.log("Tuesday");
+  console.log("Wednesday");
+  console.log("Thursday");
+  console.log("Friday");
+  console.log("Saturday");
+  console.log("Sunday");
 } else {
-  deposit = false;
+  console.log("Выбран некорректный язык");
 }
 
-expenses1 = prompt(
-  "Введите первую обязательную статью расходов?",
-  "Квартплата"
-);
-amount1 = +prompt("Во сколько это обойдется?", "5000");
-expenses2 = prompt("Введите вторую обязательную статью расходов?", "Интернет");
-amount2 = +prompt("Во сколько это обойдется?", "500");
-
-let expenses = amount1 + amount2;
-
-let budgetMonth = budgetDay * 30 - expenses;
-console.log(`Бюджет на месяц: ${budgetMonth}`);
-
-let purposeTime = mission / budgetMonth;
-purposeTime = Math.ceil(purposeTime);
-console.log(`Цель будет достигнута за ${purposeTime} месяцев`);
-
-budgetDay -= expenses / 30;
-console.log(`Бюджет на день: ${Math.floor(budgetDay)}`);
-
-if (budgetDay >= 1200) {
-  console.log("У вас высокий уровень дохода!");
-} else if (budgetDay > 600 && budgetDay < 1200) {
-  console.log("У вас средний уровень дохода");
-} else if (budgetDay <= 600 && budgetDay > 0) {
-  console.log("К сожалению у вас уровень дохода ниже среднего");
-} else if (budgetDay < 0) {
-  console.log("Что то пошло не так");
-} else if (budgetDay == 0) {
-  console.log("Вы не зарабатываете");
-} else {
-  console.log("Ошибка");
+switch (lang) {
+  case "ru":
+    console.log("Понедельник");
+    console.log("Вторник");
+    console.log("Среда");
+    console.log("Четверг");
+    console.log("Пятница");
+    console.log("Суббота");
+    console.log("Воскресенье");
+    break;
+  case "en":
+    console.log("Monday");
+    console.log("Tuesday");
+    console.log("Wednesday");
+    console.log("Thursday");
+    console.log("Friday");
+    console.log("Saturday");
+    console.log("Sunday");
+    break;
+  default:
+    console.log("Выбран некорректный язык");
 }
+
+let arr = [
+  [
+    "Понедельник",
+    "Вторник",
+    "Среда",
+    "Четверг",
+    "Пятница",
+    "Суббота",
+    "Воскресенье",
+  ],
+  [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ],
+];
+
+let namePerson = prompt("Представтесь, пожалуйста", "Артем");
+let ship =
+  namePerson == "Артем"
+    ? "директор"
+    : namePerson == "Максим"
+    ? "преподаватель"
+    : "студент";
+console.log(ship);
