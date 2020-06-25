@@ -1,11 +1,11 @@
-let money, income, addExpenses, deposit, mission, period;
-
-money = 350000;
-income = "Фриланс";
-addExpenses = "Английский, фитнес, косметолог";
-deposit = true;
-mission = 3500000;
-period = 12;
+let money = 350000,
+  income = "Фриланс",
+  addExpenses = prompt(
+    "Перечислите возможные расходы за рассчитываемый период через запятую"
+  ),
+  deposit = confirm("Есть ли у вас депозит в банке?"),
+  mission = 3500000,
+  period = 12;
 
 console.log(typeof money);
 console.log(typeof income);
@@ -21,24 +21,16 @@ money = +prompt("Ваш месячный доход?", 150000);
 
 let budgetDay = money / 30;
 
-addExpenses = prompt(
-  "Перечислите возможные расходы за рассчитываемый период через запятую"
-);
-
-deposit = prompt("Есть ли у вас депозит в банке?", "Да");
-if (deposit == "Да") {
-  deposit = true;
-} else {
-  deposit = false;
-}
-
-expenses1 = prompt(
-  "Введите первую обязательную статью расходов?",
-  "Квартплата"
-);
-amount1 = +prompt("Во сколько это обойдется?", "5000");
-expenses2 = prompt("Введите вторую обязательную статью расходов?", "Интернет");
-amount2 = +prompt("Во сколько это обойдется?", "500");
+let expenses1 = prompt(
+    "Введите первую обязательную статью расходов?",
+    "Квартплата"
+  ),
+  amount1 = +prompt("Во сколько это обойдется?", "5000"),
+  expenses2 = prompt(
+    "Введите вторую обязательную статью расходов?",
+    "Интернет"
+  ),
+  amount2 = +prompt("Во сколько это обойдется?", "500");
 
 let expenses = amount1 + amount2;
 
