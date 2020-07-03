@@ -1,0 +1,12 @@
+.day {
+  font-family: 'Courier New', Courier, monospace;
+  text-transform: uppercase;
+}
+
+.weekend {
+  font-style: italic;
+}
+
+.current-day {
+  font-weight: bold;
+}
