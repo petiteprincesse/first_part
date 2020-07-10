@@ -38,7 +38,8 @@ let start = document.getElementById("start"),
   periodSelect = document.querySelector(".period-select"),
   additionalExpensesItem = document.querySelector(".additional_expenses-item"),
   targetAmount = document.querySelector(".target-amount"),
-  incomeItem = document.querySelector('.income-items');
+  incomeItems = document.querySelectorAll(".income-items"),
+  periodAmount = document.querySelector(".period-amount");
 
 let appData = {
   budget: 0,
@@ -53,15 +54,19 @@ let appData = {
   deposit: false,
   percentDeposit: 0,
   moneyDeposit: 0,
-  start: function () {
+  calcResult: function () {
     if (salaryAmount.value === "") {
-      alert('Ошибка, поле "Месячный доход" должно быть заполнено!');
+      start.removeEventListener("click", appData.start);
       return;
     }
+    appData.start();
+  },
+  start: function () {
     appData.budget = +salaryAmount.value;
     appData.getExpenses();
     appData.getIncome();
     appData.getExpensesMonth();
+    appData.getIncomeMonth();
     appData.getAddExpenses();
     appData.getAddIncome();
     appData.getBudget();
@@ -76,6 +81,9 @@ let appData = {
     additionalIncomeValue.value = appData.addIncome.join(", ");
     targetMonthValue.value = appData.getTargetMonth();
     incomePeriodValue.value = appData.calcPeriod();
+    periodSelect.addEventListener("change", function () {
+      incomePeriodValue.value = appData.calcPeriod();
+    });
   },
   addExpensesBlock: function () {
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -94,24 +102,22 @@ let appData = {
       }
     });
   },
-  getIncome: function() {
-    if (confirm("Есть ли у вас дополнительный источник заработка?")) {
-      let itemIncome;
-      do {
-        itemIncome = prompt(
-          "Какой у вас дополнительный заработок?",
-          "Преподаю английский"
-        );
-      } while (isNotText(itemIncome));
-      let cashIncome;
-      do {
-        cashIncome = prompt("Какой доход это приносит?", 20000);
-      } while (!isNumber(cashIncome));
-      appData.income[itemIncome] = cashIncome;
-      for (let key in appData.income) {
-        appData.incomeMonth += +appData.income[key];
-      }
+  addIncomeBlock: function () {
+    let cloneIncomeItem = incomeItems[0].cloneNode(true);
+    incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
+    incomeItems = document.querySelectorAll(".income-items");
+    if (incomeItems.length === 3) {
+      incomePlus.style.display = "none";
     }
+  },
+  getIncome: function () {
+    incomeItems.forEach(function (item) {
+      let itemIncome = item.querySelector(".income-title").value;
+      let cashIncome = item.querySelector(".income-amount").value;
+      if (itemIncome !== "" && cashIncome !== "") {
+        appData.income[itemIncome] = cashIncome;
+      }
+    });
   },
   getAddExpenses: function () {
     let addExpenses = additionalExpensesItem.value.split(",");
@@ -130,13 +136,22 @@ let appData = {
       }
     });
   },
+  changePeriodValue: function () {
+    periodAmount.textContent = periodSelect.value;
+  },
   getExpensesMonth: function () {
     for (let key in appData.expenses) {
       appData.expensesMonth += +appData.expenses[key];
     }
   },
+  getIncomeMonth: function () {
+    for (let key in appData.income) {
+      appData.incomeMonth += +appData.income[key];
+    }
+  },
   getBudget: function () {
-    appData.budgetMonth = appData.budget + appData.incomeMonth - appData.expensesMonth;
+    appData.budgetMonth =
+      appData.budget + appData.incomeMonth - appData.expensesMonth;
     appData.budgetDay = Math.floor(appData.budgetMonth / 30);
   },
   getTargetMonth: function () {
@@ -179,9 +194,10 @@ let appData = {
   },
 };
 
-start.addEventListener("click", appData.start);
+start.addEventListener("click", appData.calcResult);
 expensesPlus.addEventListener("click", appData.addExpensesBlock);
-
+incomePlus.addEventListener("click", appData.addIncomeBlock);
+periodSelect.addEventListener("change", appData.changePeriodValue);
 // appData.getTargetMonth();
 
 // function incomingData() {
