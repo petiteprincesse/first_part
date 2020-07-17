@@ -87,6 +87,10 @@ let appData = {
   },
   addExpensesBlock: function () {
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
+    let expensesItemsArr = cloneExpensesItem.querySelectorAll('input');
+    expensesItemsArr.forEach((item) => {
+      item.value = "";
+    });
     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
     expensesItems = document.querySelectorAll(".expenses-items");
     if (expensesItems.length === 3) {
@@ -104,6 +108,10 @@ let appData = {
   },
   addIncomeBlock: function () {
     let cloneIncomeItem = incomeItems[0].cloneNode(true);
+    let incomeItemsArr = cloneIncomeItem.querySelectorAll('input');
+    incomeItemsArr.forEach((item) => {
+      item.value = "";
+    });
     incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
     incomeItems = document.querySelectorAll(".income-items");
     if (incomeItems.length === 3) {
@@ -198,6 +206,22 @@ start.addEventListener("click", appData.calcResult);
 expensesPlus.addEventListener("click", appData.addExpensesBlock);
 incomePlus.addEventListener("click", appData.addIncomeBlock);
 periodSelect.addEventListener("change", appData.changePeriodValue);
+
+let inputNameValid = document.querySelectorAll("[placeholder='Наименование']");
+let inputAmountValid = document.querySelectorAll("[placeholder='Сумма']");
+
+inputNameValid.forEach(function(item) {
+  item.addEventListener("input", function (event) {
+    event.target.value = event.target.value.replace(/[^а-яА-ЯёЁ\s]+$/,'');
+  });
+});
+
+inputAmountValid.forEach(function(item) {
+  item.addEventListener("input", function (event) {
+    event.target.value = event.target.value.replace(/[^0-9]+$/,''); 
+  });
+});
+
 // appData.getTargetMonth();
 
 // function incomingData() {
